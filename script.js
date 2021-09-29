@@ -1,3 +1,4 @@
+
 // getting all required elements
 const inputBox = document.querySelector(".inputField input");
 const addBtn = document.querySelector(".inputField button");
@@ -58,12 +59,24 @@ function deleteTask(index){
   listArray = JSON.parse(getLocalStorageData);
   listArray.splice(index, 1); //delete or remove the li
   localStorage.setItem("New Todo", JSON.stringify(listArray));
+  swal('Complete delete a ToDo!');
   showTasks(); //call the showTasks function
 }
 
 // delete all tasks function
 deleteAllBtn.onclick = ()=>{
-  listArray = []; //empty the array
-  localStorage.setItem("New Todo", JSON.stringify(listArray)); //set the item in localstorage
-  showTasks(); //call the showTasks function
+  var options = {
+    text: 'Delete All ToDo List?',
+    buttons: {
+        cancel: 'Cancel',
+        ok: 'Delete'
+    }
+  };
+  swal(options).then(function(value){
+      if(value){
+        listArray = []; //empty the array
+        localStorage.setItem("New Todo", JSON.stringify(listArray)); //set the item in localstorage
+        showTasks(); //call the showTasks function
+      }
+  });
 }
